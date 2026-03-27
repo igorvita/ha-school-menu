@@ -43,6 +43,13 @@ class SchoolMenuSensor(SensorEntity):
             oggi = datetime.now()
             if oggi.weekday() > 4:
                 self._state = "Weekend"
+                self._attr_native_value = "Si mangia a casa!"
+                self._primo = "Cucina mamma/papà"
+                self._secondo = "Riposo mensa"
+                self._contorno = "Niente mensa"
+                self._frutta = "Frutta di casa"
+                self._pane = "Pane fresco"
+                self._n_settimana = "-"
                 return
 
             # Carichiamo le variabili dalla configurazione
