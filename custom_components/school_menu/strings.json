@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "data": {
+          "pdf_url_inv": "URL PDF Menù Invernale",
+          "data_inizio_inv": "Data inizio Invernale (AAAA-MM-GG)",
+          "pdf_url_est": "URL PDF Menù Estivo",
+          "data_inizio_est": "Data inizio Estivo (AAAA-MM-GG)",
+          "settimane_ciclo": "Numero settimane del ciclo",
+          "portate_per_giorno": "Numero portate per ogni giorno"
+        }
+      }
+    }
+  }
+}
