@@ -1,0 +1,9 @@
+{
+  "domain": "school_menu",
+  "name": "Menù Scuola San Benedetto",
+  "documentation": "https://github.com/tuo-username/ha-school-menu",
+  "dependencies": [],
+  "codeowners": ["@tuo-username"],
+  "requirements": ["pdfplumber", "requests"],
+  "version": "1.0.0"
+}
