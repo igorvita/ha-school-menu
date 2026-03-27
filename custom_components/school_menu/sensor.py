@@ -10,8 +10,9 @@ from datetime import timedelta
 _LOGGER = logging.getLogger(__name__)
 
 # Configurazione (in un'integrazione vera questi verrebbero dal file yaml o UI)
-PDF_URL = "https://municipium-images-production.s3-eu-west-1.amazonaws.com/s3/6115/allegati/sito-pnrr/documenti-e-dati/001-menu_aut-_inv_2023_2024_sbt_def_.pdf"
-DATA_INIZIO_CICLO = datetime(2025, 9, 15) # Lunedì Settimana 1
+URL_INVERNALE = "https://municipium-images-production.s3-eu-west-1.amazonaws.com/s3/6115/allegati/sito-pnrr/documenti-e-dati/001-menu_aut-_inv_2023_2024_sbt_def_.pdf"
+URL_ESTIVO = "https://municipium-images-production.s3-eu-west-1.amazonaws.com/s3/6115/allegati/sito-pnrr/documenti-e-dati/006-menu_primavera_estate_2023-24_sbt_def_.pdf"
+DATA_INIZIO_CICLO = datetime(2025, 9, 1) # Lunedì Settimana 1
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup dell'integrazione via configuration.yaml."""
@@ -52,12 +53,21 @@ class SchoolMenuSensor(SensorEntity):
                 self._state = "Nessun servizio (Weekend)"
                 return
 
+            # --- LOGICA CAMBIO MENÙ AUTOMATICO ---
+            # Definiamo il periodo estivo (dal 1 Aprile al 31 Ottobre)
+            if 4 <= oggi.month <= 10:
+                pdf_url = URL_ESTIVO
+                _LOGGER.info("Utilizzo menù ESTIVO")
+            else:
+                pdf_url = URL_INVERNALE
+                _LOGGER.info("Utilizzo menù INVERNALE")
+            
             # Calcolo settimana (1-6)
             settimane_trascorse = (oggi - DATA_INIZIO_CICLO).days // 7
             n_settimana = (settimane_trascorse % 6) # 0 to 5 (indice pagina)
             giorno_index = oggi.weekday() # 0=Lun, 1=Mar...
 
-            response = requests.get(PDF_URL, timeout=10)
+            response = requests.get(pdf_url, timeout=10)
             with pdfplumber.open(io.BytesIO(response.content)) as pdf:
                 # Selezioniamo la pagina della settimana corrente
                 page = pdf.pages[n_settimana]
