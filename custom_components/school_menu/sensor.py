@@ -3,6 +3,7 @@ from datetime import datetime
 import requests
 import pdfplumber
 import logging
+import io
 
 _LOGGER = logging.getLogger(__name__)
 
