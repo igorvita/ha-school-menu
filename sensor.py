@@ -11,7 +11,7 @@ _LOGGER = logging.getLogger(__name__)
 
 # Configurazione (in un'integrazione vera questi verrebbero dal file yaml o UI)
 PDF_URL = "https://municipium-images-production.s3-eu-west-1.amazonaws.com/s3/6115/allegati/sito-pnrr/documenti-e-dati/001-menu_aut-_inv_2023_2024_sbt_def_.pdf"
-DATA_INIZIO_CICLO = datetime(2023, 9, 11) # Lunedì Settimana 1
+DATA_INIZIO_CICLO = datetime(2025, 9, 15) # Lunedì Settimana 1
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Setup dell'integrazione via configuration.yaml."""
@@ -23,10 +23,25 @@ class SchoolMenuSensor(SensorEntity):
         self._attr_name = "Menù Scuola Oggi"
         self._state = "In aggiornamento..."
         self._attr_unique_id = "school_menu_sbt_01"
+        # Inizializziamo le variabili per gli attributi
+        self._primo = None
+        self._secondo = None
+        self._contorno = None
+        self._frutta = None
+        self._pane = None
+        self._n_settimana = None
 
     @property
-    def state(self):
-        return self._state
+    def extra_state_attributes(self):
+        """Definiamo gli attributi extra del sensore."""
+        return {
+            "settimana_ciclo": self._n_settimana,
+            "primo": self._primo,
+            "secondo": self._secondo,
+            "contorno": self._contorno,
+            "frutta": self._frutta,
+            "pane": self._pane
+        }
 
     def update(self):
         """Metodo che scarica il PDF e aggiorna lo stato."""
@@ -64,6 +79,19 @@ class SchoolMenuSensor(SensorEntity):
                 oggi_menu = all_dishes[start_idx : start_idx + dishes_per_day]
                 
                 self._state = " | ".join(oggi_menu)
+            
+            if len(oggi_menu) >= 5:
+                self._primo = oggi_menu[0]
+                self._secondo = oggi_menu[1]
+                self._contorno = oggi_menu[2]
+                self._frutta = oggi_menu[3]
+                self._pane = oggi_menu[4]
+                self._n_settimana = n_settimana + 1 # +1 perché l'indice parte da 0
+                
+                # Lo stato principale mostrerà solo il piatto forte (o quello che preferisci)
+                self._state = f"{self._primo} e {self._secondo}"
+            else:
+                self._state = "Dati incompleti nel PDF"
 
         except Exception as e:
             _LOGGER.error(f"Errore aggiornamento menù: {e}")
