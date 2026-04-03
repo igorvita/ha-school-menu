@@ -85,26 +85,55 @@ class SchoolMenuSensor(SensorEntity):
             response = requests.get(pdf_url, timeout=15)
             with pdfplumber.open(io.BytesIO(response.content)) as pdf:
                 page = pdf.pages[n_settimana]
-                text = page.extract_text()
+                table = page.extract_table()
                 
-                # Pulizia righe vuote
-                all_rows = [r.strip() for r in text.split('\n') if r.strip()]
-                
-                # Calcoliamo l'offset in base alle portate per giorno
-                n_portate = self._config["portate_per_giorno"]
-                start_index = giorno_index * n_portate
-                menu_del_giorno = all_rows[start_index : start_index + n_portate]
+                if not table:
+                    self._attr_native_value = "Tabella non trovata"
+                    return
 
-                if len(menu_del_giorno) >= n_portate:
-                    self._primo = menu_del_giorno[0]
-                    self._secondo = menu_del_giorno[1]
-                    self._contorno = menu_del_giorno[2]
-                    self._frutta = menu_del_giorno[3] if n_portate > 3 else ""
-                    self._pane = menu_del_giorno[4] if n_portate > 4 else ""
-                    self._attr_native_value = f"{self._stagione} - Sett. {self._n_settimana}"
+                # Pulizia righe
+                clean_table = []
+                for row in table:
+                    clean_row = [str(cell).strip() if cell else "" for cell in row]
+                    if any(clean_row) and "Comune" not in clean_row[0] and "Settimana" not in clean_row[0]:
+                        clean_table.append(clean_row)
+
+                _LOGGER.warning(f"DEBUG RIGHE PULITE: {clean_table}")
+
+                # --- NUOVA LOGICA DI RICERCA ROBUSTA ---
+                # Cerchiamo le lettere chiave dei giorni nella prima colonna
+                giorni_chiave = ["LUN", "MAR", "MER", "GIO", "VEN"]
+                target_giorno = giorni_chiave[giorno_index]
+
+                start_index = -1
+                for i, row in enumerate(clean_table):
+                    # Puliamo la cella eliminando i ritorni a capo e la 'Ì'
+                    # per rendere la cella una stringa piatta (es: "IDRENEV")
+                    cella_pulita = str(row[0]).upper().replace('\n', '').replace('Ì', '').replace(' ', '')
+                    
+                    # Verifichiamo se le lettere (es. V, E, N) sono presenti nella cella
+                    if all(lettera in cella_pulita for lettera in target_giorno):
+                        start_index = i
+                        _LOGGER.warning(f"GIORNO TROVATO alla riga {i}: {cella_pulita}")
+                        break
+
+                if start_index != -1:
+                    try:
+                        # Estraiamo i piatti dalla colonna 2 (indice 2)
+                        # Usiamo min/max o controlli per evitare di andare fuori dai bordi della tabella
+                        self._primo = clean_table[start_index][2] if len(clean_table[start_index]) > 2 else "N/D"
+                        self._secondo = clean_table[start_index + 1][2] if len(clean_table) > (start_index + 1) else "N/D"
+                        self._contorno = clean_table[start_index + 2][2] if len(clean_table) > (start_index + 2) else "N/D"
+                        self._frutta = clean_table[start_index + 3][2] if len(clean_table) > (start_index + 3) else "N/D"
+                        self._pane = clean_table[start_index + 4][2] if len(clean_table) > (start_index + 4) else "N/D"
+                        
+                        self._attr_native_value = f"{self._stagione} - Sett. {self._n_settimana}"
+                    except Exception as e:
+                        _LOGGER.error(f"Errore estrazione piatti: {e}")
+                        self._attr_native_value = "Errore Tabella"
                 else:
-                    self._attr_native_value = "Errore righe PDF" # <-- Uniformato
+                    self._attr_native_value = "Giorno non trovato"
 
         except Exception as e:
-            _LOGGER.error(f"Errore aggiornamento: {e}")
-            self._attr_native_value = "Errore" # <-- Uniformato
+            _LOGGER.error(f"Errore generale aggiornamento: {e}")
+            self._attr_native_value = "Errore"
