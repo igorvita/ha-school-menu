@@ -2,14 +2,37 @@
   "config": {
     "step": {
       "user": {
+        "title": "School Menu Configuration",
+        "description": "Configure the PDF source and menu structure for your school.",
         "data": {
-          "pdf_url_inv": "URL PDF Menù Invernale",
-          "data_inizio_inv": "Data inizio Invernale (AAAA-MM-GG)",
-          "pdf_url_est": "URL PDF Menù Estivo",
-          "data_inizio_est": "Data inizio Estivo (AAAA-MM-GG)",
-          "settimane_ciclo": "Numero settimane del ciclo",
-          "portate_per_giorno": "Numero portate per ogni giorno"
+          "pdf_url_inv": "Winter menu PDF URL",
+          "data_inizio_inv": "Winter menu start date (YYYY-MM-DD)",
+          "pdf_url_est": "Spring/Summer menu PDF URL",
+          "data_inizio_est": "Spring/Summer menu start date (YYYY-MM-DD)",
+          "settimane_ciclo": "Number of weeks in the cycle",
+          "modalita_blocco": "Day block detection mode",
+          "portate_nomi": "Course names (comma-separated, in order)",
+          "portate_per_giorno": "Courses per day (only used in 'fixed' mode)"
+        },
+        "data_description": {
+          "modalita_blocco": "How the integration detects where one day ends and the next begins in the PDF table. Use 'auto' if unsure.",
+          "portate_nomi": "Enter the names of the courses in the order they appear in the PDF. Example: first course, second course, side dish, fruit, bread",
+          "portate_per_giorno": "Only used when 'fixed' mode is selected. Must match the number of course names entered above."
         }
+      }
+    },
+    "error": {
+      "invalid_date": "Invalid date format. Please use YYYY-MM-DD (e.g. 2025-09-15).",
+      "portate_nomi_mismatch": "The number of course names must match the number of courses per day set above."
+    }
+  },
+  "selector": {
+    "modalita_blocco": {
+      "options": {
+        "auto": "Auto (empty row or new day — recommended)",
+        "riga_vuota": "Empty row only",
+        "nuovo_giorno": "New day label only",
+        "fisso": "Fixed number of courses"
       }
     }
   }
