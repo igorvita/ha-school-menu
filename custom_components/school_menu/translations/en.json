@@ -1,0 +1,39 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurazione Menù Scuola",
+        "description": "Configura la sorgente PDF e la struttura del menù della tua scuola.",
+        "data": {
+          "pdf_url_inv": "URL PDF Menù Invernale",
+          "data_inizio_inv": "Data inizio Invernale (AAAA-MM-GG)",
+          "pdf_url_est": "URL PDF Menù Primaverile/Estivo",
+          "data_inizio_est": "Data inizio Primaverile/Estivo (AAAA-MM-GG)",
+          "settimane_ciclo": "Numero di settimane nel ciclo",
+          "modalita_blocco": "Modalità di rilevamento blocco-giorno",
+          "portate_nomi": "Nomi delle portate (separati da virgola, in ordine)",
+          "portate_per_giorno": "Portate per giorno (solo in modalità 'fisso')"
+        },
+        "data_description": {
+          "modalita_blocco": "Indica come l'integrazione riconosce dove finisce un giorno e inizia il successivo nella tabella PDF. Usa 'Auto' se non sei sicuro.",
+          "portate_nomi": "Inserisci i nomi delle portate nell'ordine in cui compaiono nel PDF. Esempio: primo, secondo, contorno, frutta, pane",
+          "portate_per_giorno": "Usato solo con la modalità 'Numero fisso'. Deve corrispondere al numero di nomi inseriti nel campo qui sopra."
+        }
+      }
+    },
+    "error": {
+      "invalid_date": "Formato data non valido. Usa AAAA-MM-GG (es. 2025-09-15).",
+      "portate_nomi_mismatch": "Il numero di nomi delle portate deve corrispondere al numero di portate per giorno impostato sopra."
+    }
+  },
+  "selector": {
+    "modalita_blocco": {
+      "options": {
+        "auto": "Auto (riga vuota o nuovo giorno — consigliato)",
+        "riga_vuota": "Solo riga vuota",
+        "nuovo_giorno": "Solo etichetta nuovo giorno",
+        "fisso": "Numero fisso di portate"
+      }
+    }
+  }
+}
