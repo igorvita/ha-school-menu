@@ -1,11 +1,11 @@
 {
   "domain": "school_menu",
-  "name": "Menù Scuola San Benedetto",
+  "name": "School Menu",
   "codeowners": ["@igorvita"],
   "dependencies": [],
   "documentation": "https://github.com/igorvita/ha-school-menu",
   "requirements": ["pdfplumber", "requests"],
-  "version": "1.7.0",
+  "version": "2.0.0",
   "config_flow": true,
   "iot_class": "cloud_polling"
 }
