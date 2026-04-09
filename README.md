@@ -3,6 +3,7 @@
 Un'integrazione custom per Home Assistant che legge il **menù scolastico giornaliero da un PDF** e lo espone come sensore con attributi, uno per ogni portata.
 
 Sviluppata originariamente per le scuole del Comune di San Benedetto del Tronto (AP), è progettata per adattarsi a diversi formati di PDF scolastici italiani.
+
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
 [![GitHub Release](https://img.shields.io/github/v/release/igorvita/ha-school-menu)](https://github.com/igorvita/ha-school-menu/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/igorvita/ha-school-menu/blob/main/LICENSE)
