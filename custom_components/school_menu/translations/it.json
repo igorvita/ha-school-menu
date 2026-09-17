@@ -5,24 +5,73 @@
         "title": "Configurazione Menù Scuola",
         "description": "Configura la sorgente PDF e la struttura del menù della tua scuola.",
         "data": {
-          "pdf_url_inv": "URL PDF Menù Invernale",
-          "data_inizio_inv": "Data inizio Invernale (AAAA-MM-GG)",
           "pdf_url_est": "URL PDF Menù Primaverile/Estivo",
-          "data_inizio_est": "Data inizio Primaverile/Estivo (AAAA-MM-GG)",
+          "pdf_url_inv": "URL PDF Menù Invernale",
+          "data_inizio_anno": "Data inizio anno scolastico",
+          "data_fine_est_1": "Fine primo periodo primaverile/estivo",
+          "data_inizio_est_2": "Inizio secondo periodo primaverile/estivo",
+          "data_fine_anno": "Data fine anno scolastico",
           "settimane_ciclo": "Numero di settimane nel ciclo",
+          "settimana_inizio_est_1": "Settimana di partenza — primo periodo estivo",
+          "settimana_inizio_inv": "Settimana di partenza — periodo invernale",
+          "settimana_inizio_est_2": "Settimana di partenza — secondo periodo estivo",
           "modalita_blocco": "Modalità di rilevamento blocco-giorno",
           "portate_nomi": "Nomi delle portate (separati da virgola, in ordine)",
           "portate_per_giorno": "Portate per giorno (solo in modalità 'fisso')"
         },
         "data_description": {
+          "data_inizio_anno": "Primo giorno di scuola. Il ciclo del menù parte da questa data.",
+          "data_fine_est_1": "Il menù primaverile/estivo viene usato fino a questa data (esclusa). Da questa data inizia il menù invernale.",
+          "data_inizio_est_2": "Da questa data riprende il menù primaverile/estivo fino alla fine dell'anno scolastico.",
+          "data_fine_anno": "Da questa data in poi il sensore mostrerà 'Si mangia a casa!' anche nei giorni feriali.",
+          "settimana_inizio_est_1": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il primo periodo estivo.",
+          "settimana_inizio_inv": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il periodo invernale. Inserisci 0 per continuare automaticamente dal punto in cui si era fermato il periodo precedente.",
+          "settimana_inizio_est_2": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il secondo periodo estivo. Inserisci 0 per continuare automaticamente dal punto in cui si era fermato il periodo invernale.",
           "modalita_blocco": "Indica come l'integrazione riconosce dove finisce un giorno e inizia il successivo nella tabella PDF. Usa 'Auto' se non sei sicuro.",
           "portate_nomi": "Inserisci i nomi delle portate nell'ordine in cui compaiono nel PDF. Esempio: primo, secondo, contorno, frutta, pane",
           "portate_per_giorno": "Usato solo con la modalità 'Numero fisso'. Deve corrispondere al numero di nomi inseriti nel campo qui sopra."
         }
       }
     },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Configurazione Menù Scuola",
+          "description": "Aggiorna la sorgente PDF e la struttura del menù della tua scuola.",
+          "data": {
+            "pdf_url_est": "URL PDF Menù Primaverile/Estivo",
+            "pdf_url_inv": "URL PDF Menù Invernale",
+            "data_inizio_anno": "Data inizio anno scolastico",
+            "data_fine_est_1": "Fine primo periodo primaverile/estivo",
+            "data_inizio_est_2": "Inizio secondo periodo primaverile/estivo",
+            "data_fine_anno": "Data fine anno scolastico",
+            "settimane_ciclo": "Numero di settimane nel ciclo",
+            "settimana_inizio_est_1": "Settimana di partenza — primo periodo estivo",
+            "settimana_inizio_inv": "Settimana di partenza — periodo invernale",
+            "settimana_inizio_est_2": "Settimana di partenza — secondo periodo estivo",
+            "modalita_blocco": "Modalità di rilevamento blocco-giorno",
+            "portate_nomi": "Nomi delle portate (separati da virgola, in ordine)",
+            "portate_per_giorno": "Portate per giorno (solo in modalità 'fisso')"
+          },
+          "data_description": {
+            "data_inizio_anno": "Primo giorno di scuola. Il ciclo del menù parte da questa data.",
+            "data_fine_est_1": "Il menù primaverile/estivo viene usato fino a questa data (esclusa). Da questa data inizia il menù invernale.",
+            "data_inizio_est_2": "Da questa data riprende il menù primaverile/estivo fino alla fine dell'anno scolastico.",
+            "data_fine_anno": "Da questa data in poi il sensore mostrerà 'Si mangia a casa!' anche nei giorni feriali.",
+            "settimana_inizio_est_1": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il primo periodo estivo.",
+            "settimana_inizio_inv": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il periodo invernale. Inserisci 0 per continuare automaticamente dal punto in cui si era fermato il periodo precedente.",
+            "settimana_inizio_est_2": "Numero della settimana (da 1 fino alla lunghezza del ciclo) da cui parte il secondo periodo estivo. Inserisci 0 per continuare automaticamente dal punto in cui si era fermato il periodo invernale.",
+            "modalita_blocco": "Indica come l'integrazione riconosce dove finisce un giorno e inizia il successivo nella tabella PDF. Usa 'Auto' se non sei sicuro.",
+            "portate_nomi": "Inserisci i nomi delle portate nell'ordine in cui compaiono nel PDF. Esempio: primo, secondo, contorno, frutta, pane",
+            "portate_per_giorno": "Usato solo con la modalità 'Numero fisso'. Deve corrispondere al numero di nomi inseriti nel campo qui sopra."
+          }
+        }
+      }
+    },
     "error": {
-      "invalid_date": "Formato data non valido. Usa AAAA-MM-GG (es. 2025-09-15).",
+      "invalid_date": "Formato data non valido. Seleziona una data valida.",
+      "date_order_invalid": "Le date devono essere in ordine cronologico: inizio anno → fine primo periodo estivo → inizio secondo periodo estivo → fine anno.",
+      "settimana_fuori_range": "La settimana di partenza deve essere 0 (continua dal periodo precedente) oppure un numero da 1 fino alla lunghezza del ciclo. Il primo periodo estivo non accetta il valore 0.",
       "portate_nomi_mismatch": "Il numero di nomi delle portate deve corrispondere al numero di portate per giorno impostato sopra."
     }
   },
