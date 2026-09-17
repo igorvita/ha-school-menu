@@ -260,6 +260,29 @@ Assicurati che il timezone di Home Assistant sia configurato correttamente in **
 
 ## 📝 Changelog
 
+### 2.1.0
+### Gestione anno scolastico a tre periodi
+Il menù ora segue il ciclo reale dell'anno scolastico italiano:
+- **Primo periodo estivo/primaverile** — dall'inizio della scuola fino all'inizio del menù invernale
+- **Periodo invernale** — dal menù invernale fino alla ripresa del menù primaverile/estivo
+- **Secondo periodo estivo/primaverile** — dalla primavera fino alla fine dell'anno scolastico
+- **Fuori anno scolastico** — il sensore mostra "Si mangia a casa!" anche nei giorni feriali
+
+### Continuazione automatica del ciclo settimane
+Le settimane di partenza del periodo invernale e del secondo periodo estivo possono essere impostate su **0** per continuare automaticamente dal punto in cui si era fermato il periodo precedente, senza interruzioni nel ciclo.
+
+### Selettore data con calendario
+I campi data mostrano ora un **calendario interattivo** nell'interfaccia di Home Assistant, eliminando la necessità di inserire manualmente il formato YYYY-MM-DD.
+
+### Options Flow
+È ora possibile modificare la configurazione dell'integrazione direttamente da **Impostazioni → Dispositivi e servizi → School Menu → Configura**, senza dover eliminare e ricreare l'integrazione.
+
+## 🔧 Modifiche tecniche
+- Nuova funzione `_determina_periodo()` in `sensor.py` che centralizza tutta la logica stagionale
+- Nuova funzione `_calcola_offset_continua()` per il calcolo automatico della settimana di partenza
+- Validazione dell'ordine cronologico delle date nel config flow
+- Traduzioni aggiornate (italiano e inglese) con descrizioni dettagliate per tutti i nuovi campi
+
 ### 2.0.0
 - Rilevamento automatico della colonna dei piatti nel PDF
 - Rilevamento automatico del numero di portate per giorno (addio `portate_per_giorno` fisso)
