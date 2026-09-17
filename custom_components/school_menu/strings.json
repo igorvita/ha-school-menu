@@ -5,24 +5,73 @@
         "title": "School Menu Configuration",
         "description": "Configure the PDF source and menu structure for your school.",
         "data": {
-          "pdf_url_inv": "Winter menu PDF URL",
-          "data_inizio_inv": "Winter menu start date (YYYY-MM-DD)",
           "pdf_url_est": "Spring/Summer menu PDF URL",
-          "data_inizio_est": "Spring/Summer menu start date (YYYY-MM-DD)",
+          "pdf_url_inv": "Winter menu PDF URL",
+          "data_inizio_anno": "School year start date",
+          "data_fine_est_1": "End of first spring/summer period",
+          "data_inizio_est_2": "Start of second spring/summer period",
+          "data_fine_anno": "School year end date",
           "settimane_ciclo": "Number of weeks in the cycle",
+          "settimana_inizio_est_1": "Starting week — first spring/summer period",
+          "settimana_inizio_inv": "Starting week — winter period",
+          "settimana_inizio_est_2": "Starting week — second spring/summer period",
           "modalita_blocco": "Day block detection mode",
           "portate_nomi": "Course names (comma-separated, in order)",
           "portate_per_giorno": "Courses per day (only used in 'fixed' mode)"
         },
         "data_description": {
+          "data_inizio_anno": "First day of school. The menu cycle starts from this date.",
+          "data_fine_est_1": "The spring/summer menu is used up to (but not including) this date. From this date the winter menu begins.",
+          "data_inizio_est_2": "From this date the spring/summer menu resumes until the end of the school year.",
+          "data_fine_anno": "From this date onwards the sensor will show 'Eating at home!' even on weekdays.",
+          "settimana_inizio_est_1": "Week number (1 to cycle length) from which the first spring/summer period starts.",
+          "settimana_inizio_inv": "Week number (1 to cycle length) from which the winter period starts. Enter 0 to continue automatically from where the previous period left off.",
+          "settimana_inizio_est_2": "Week number (1 to cycle length) from which the second spring/summer period starts. Enter 0 to continue automatically from where the winter period left off.",
           "modalita_blocco": "How the integration detects where one day ends and the next begins in the PDF table. Use 'auto' if unsure.",
           "portate_nomi": "Enter the names of the courses in the order they appear in the PDF. Example: first course, second course, side dish, fruit, bread",
           "portate_per_giorno": "Only used when 'fixed' mode is selected. Must match the number of course names entered above."
         }
       }
     },
+    "options": {
+      "step": {
+        "init": {
+          "title": "School Menu Configuration",
+          "description": "Update the PDF source and menu structure for your school.",
+          "data": {
+            "pdf_url_est": "Spring/Summer menu PDF URL",
+            "pdf_url_inv": "Winter menu PDF URL",
+            "data_inizio_anno": "School year start date",
+            "data_fine_est_1": "End of first spring/summer period",
+            "data_inizio_est_2": "Start of second spring/summer period",
+            "data_fine_anno": "School year end date",
+            "settimane_ciclo": "Number of weeks in the cycle",
+            "settimana_inizio_est_1": "Starting week — first spring/summer period",
+            "settimana_inizio_inv": "Starting week — winter period",
+            "settimana_inizio_est_2": "Starting week — second spring/summer period",
+            "modalita_blocco": "Day block detection mode",
+            "portate_nomi": "Course names (comma-separated, in order)",
+            "portate_per_giorno": "Courses per day (only used in 'fixed' mode)"
+          },
+          "data_description": {
+            "data_inizio_anno": "First day of school. The menu cycle starts from this date.",
+            "data_fine_est_1": "The spring/summer menu is used up to (but not including) this date. From this date the winter menu begins.",
+            "data_inizio_est_2": "From this date the spring/summer menu resumes until the end of the school year.",
+            "data_fine_anno": "From this date onwards the sensor will show 'Eating at home!' even on weekdays.",
+            "settimana_inizio_est_1": "Week number (1 to cycle length) from which the first spring/summer period starts.",
+            "settimana_inizio_inv": "Week number (1 to cycle length) from which the winter period starts. Enter 0 to continue automatically from where the previous period left off.",
+            "settimana_inizio_est_2": "Week number (1 to cycle length) from which the second spring/summer period starts. Enter 0 to continue automatically from where the winter period left off.",
+            "modalita_blocco": "How the integration detects where one day ends and the next begins in the PDF table. Use 'auto' if unsure.",
+            "portate_nomi": "Enter the names of the courses in the order they appear in the PDF. Example: first course, second course, side dish, fruit, bread",
+            "portate_per_giorno": "Only used when 'fixed' mode is selected. Must match the number of course names entered above."
+          }
+        }
+      }
+    },
     "error": {
-      "invalid_date": "Invalid date format. Please use YYYY-MM-DD (e.g. 2025-09-15).",
+      "invalid_date": "Invalid date format. Please select a valid date.",
+      "date_order_invalid": "Dates must be in chronological order: school year start → end of first summer → start of second summer → school year end.",
+      "settimana_fuori_range": "The starting week must be 0 (continue from previous period) or a number between 1 and the cycle length. The first summer period does not accept 0.",
       "portate_nomi_mismatch": "The number of course names must match the number of courses per day set above."
     }
   },
